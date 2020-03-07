@@ -1,5 +1,9 @@
 .weekList {
     display: flex;
+    flex-wrap: wrap;
+    flex: 1 1 auto;
+
+    margin-bottom: 2em;
 }
 .weekNav {
     text-align: center;
@@ -11,19 +15,27 @@
 .dayView {
     padding: 8px;
     flex: 1;
+    margin-top: 12px;
+    margin-left: 12px;
+    min-width: 110px;
+}
+.dayView:first-child {
+    margin-left: 0;
 }
 .dayTitle {
     font-weight: 700;
 }
 .dayEvents {
     margin-top: 8px;
+    min-height: 100px;
+    flex-direction: column;
 }
 .dayEventsItem {
     margin-bottom: 5px;
 }
 .folk {
-    color: green;
+    color: #ff9800;
 }
 .public {
-    color: blue;
+    color: #2196f3;
 }

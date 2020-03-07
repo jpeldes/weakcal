@@ -5,11 +5,24 @@ import { selectAllHolidays } from "../holidays/holidaysSlice";
 import { useSelector } from "react-redux";
 import * as api from "../../api";
 
+import {
+  Box,
+  Card,
+  CardMedia,
+  CardContent,
+  CardActions,
+  BottomNavigation,
+  BottomNavigationAction
+} from "@material-ui/core";
 
-function DayEvent({ name, type }) {
-    return (
-        <div className={[styles.dayEventsItem, styles[type]].join(' ')}>{ name }</div>
-    )
+import CalendarTodayIcon from '@material-ui/icons/Today';
+import ArrowRightIcon from '@material-ui/icons/ArrowForward';
+import ArrowLeftIcon from '@material-ui/icons/ArrowBack';
+
+function DayEventsItem({ name, type }) {
+  return (
+    <div className={[styles.dayEventsItem, styles[type]].join(" ")}>{name}</div>
+  );
 }
 
 function DayView({ holidayId }) {
@@ -18,19 +31,23 @@ function DayView({ holidayId }) {
   const holidays = useSelector(selectAllHolidays)[holidayId] || [];
 
   return (
-    <div className={styles.dayView}>
-      <div className={styles.dayTitle}>
-        <div>{m.format("ddd")}</div>
-        <div>{m.format("DD.MM.YYYY")}</div>
-      </div>
-      <div className={styles.dayEvents}>
-        {holidays.map((holiday, idx) => <DayEvent key={idx} {...holiday} />)}
-      </div>
-    </div>
+    <Card className={styles.dayView}>
+      <CardMedia title={m.format("ddd")}>
+        <Box textAlign="center">{m.format("ddd")}</Box>
+      </CardMedia>
+      <CardContent className={styles.dayTitle}>
+        <Box textAlign="center">{m.format("DD.MM.YYYY")}</Box>
+      </CardContent>
+      <CardActions className={styles.dayEvents}>
+        {holidays.map((holiday, idx) => (
+          <DayEventsItem key={idx} {...holiday} />
+        ))}
+      </CardActions>
+    </Card>
   );
 }
 
-const todaysDate = moment().format('YYYY-MM-DD');
+const todaysDate = moment().format("YYYY-MM-DD");
 
 export function WeekView() {
   // Default value: todays date
@@ -40,15 +57,10 @@ export function WeekView() {
 
   // on date change: sync holidays
   React.useEffect(() => {
-    const startDate = m.weekday(0).format('YYYY-MM-DD');
-    const endDate = m.weekday(6).format('YYYY-MM-DD');
+    const startDate = m.weekday(0).format("YYYY-MM-DD");
+    const endDate = m.weekday(6).format("YYYY-MM-DD");
     api.syncHolidays(startDate, endDate).then(console.log);
   }, [m]);
-
-
-  const onClickNextWeek = () => onChangeDate(m.add(7, 'days'));
-  const onClickPrevWeek = () => onChangeDate(m.subtract(7, 'days'));
-
 
   // Generate 7 days of that given week
   let thisWeeksIds = [];
@@ -58,15 +70,21 @@ export function WeekView() {
 
   return (
     <div className={styles.weekView}>
-      <div className={styles.weekNav}>
-        <button className={styles.weekNavBtn} onClick={onClickPrevWeek}>{"<<"}</button>
-        <button className={styles.weekNavBtn} onClick={onClickNextWeek}>{">>"}</button>
-      </div>
       <div className={styles.weekList}>
         {thisWeeksIds.map(holidayId => (
           <DayView key={holidayId} holidayId={holidayId} />
         ))}
       </div>
+
+      <BottomNavigation
+        value={m}
+        onChange={(event, newValue) => onChangeDate(newValue)}
+        showLabels
+      >
+        <BottomNavigationAction label="Last week" value={m.subtract(7, "days").format("YYYY-MM-DD")} icon={<ArrowLeftIcon />} />
+        <BottomNavigationAction label="Today" value={moment().format("YYYY-MM-DD")} icon={<CalendarTodayIcon />} />
+        <BottomNavigationAction label="Next week" value={m.add(7, "days").format("YYYY-MM-DD")} icon={<ArrowRightIcon />} />
+      </BottomNavigation>
     </div>
   );
 }
