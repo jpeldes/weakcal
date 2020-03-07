@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './features/counter/counterSlice';
+import holidaysReducer from './features/holidays/holidaysSlice';
 
 export default configureStore({
   reducer: {
-    counter: counterReducer,
+    holidays: holidaysReducer,
   },
 });

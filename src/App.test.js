@@ -4,12 +4,12 @@ import { Provider } from 'react-redux';
 import store from './store';
 import App from './App';
 
-test('renders learn react link', () => {
+test('renders heading', () => {
   const { getByText } = render(
     <Provider store={store}>
       <App />
     </Provider>
   );
 
-  expect(getByText(/learn/i)).toBeInTheDocument();
+  expect(getByText(/weakcal/i)).toBeInTheDocument();
 });

@@ -1,0 +1,29 @@
+.weekList {
+    display: flex;
+}
+.weekNav {
+    text-align: center;
+}
+.weekNavBtn {
+    font-size: 2em;
+}
+
+.dayView {
+    padding: 8px;
+    flex: 1;
+}
+.dayTitle {
+    font-weight: 700;
+}
+.dayEvents {
+    margin-top: 8px;
+}
+.dayEventsItem {
+    margin-bottom: 5px;
+}
+.folk {
+    color: green;
+}
+.public {
+    color: blue;
+}
