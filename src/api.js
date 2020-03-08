@@ -1,5 +1,9 @@
 // Imports
-import { receiveHolidays } from "./features/holidays/holidaysSlice";
+import {
+  receiveHolidays,
+  markMonthSynced,
+  hasSyncedMonth
+} from "./features/holidays/holidaysSlice";
 import store from "./store";
 
 // Constants
@@ -22,9 +26,27 @@ export const syncHolidays = (startDate, endDate) => {
   };
 
   let url = "/api/holidays";
-  return jsonPost(url, data)
-    .then(json => {
-      store.dispatch(receiveHolidays({ holidays: json.holidays }));
-      return json;
-    });
+  return jsonPost(url, data).then(json => {
+    store.dispatch(receiveHolidays({ holidays: json.holidays }));
+    return json;
+  });
+};
+
+export const syncMonthHolidays = (theMoment) => {
+  let theMonth = theMoment.format('YYYY-MM');
+  if ( hasSyncedMonth(theMonth)(store.getState()) ) {
+    console.log(theMonth + ' has been synced before');
+    return Promise.resolve();
+  }
+  let data = {
+    startDate: theMoment.startOf('month').format('YYYY-MM-DD'),
+    endDate: theMoment.endOf('month').format('YYYY-MM-DD')
+  };
+
+  let url = "/api/holidays";
+  return jsonPost(url, data).then(json => {
+    store.dispatch(receiveHolidays({ holidays: json.holidays }));
+    store.dispatch(markMonthSynced({ syncedMonth: theMonth }));
+    return json;
+  });
 };
