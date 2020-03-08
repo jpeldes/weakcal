@@ -17,7 +17,11 @@ export function WeekView() {
 
   // on date change: sync holidays
   React.useEffect(() => {
-    api.syncMonthHolidays(theMoment);
+    let weekStart = moment(theMoment).startOf('week');
+    let weekEnd = moment(theMoment).endOf('week');
+
+    api.syncMonthHolidays(weekStart);
+    api.syncMonthHolidays(weekEnd);
   }, [theMoment]);
 
   return (
