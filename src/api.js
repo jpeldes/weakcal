@@ -2,9 +2,12 @@
 import {
   receiveHolidays,
   markMonthSynced,
-  hasSyncedMonth
+  hasSyncedMonth,
+  isSyncingMonth,
+  startedSyncingMonth,
+  finishedSyncingMonth
 } from "./features/holidays/holidaysSlice";
-import { store } from "./store";
+import { store } from "./store";
 
 // Constants
 const BASE_URL = "https://wozmx9dh26.execute-api.eu-west-1.amazonaws.com";
@@ -32,21 +35,32 @@ export const syncHolidays = (startDate, endDate) => {
   });
 };
 
-export const syncMonthHolidays = (theMoment) => {
-  let theMonth = theMoment.format('YYYY-MM');
-  if ( hasSyncedMonth(theMonth)(store.getState()) ) {
-    console.log(theMonth + ' has been synced before');
+export const syncMonthHolidays = theMoment => {
+  let theMonth = theMoment.format("YYYY-MM");
+
+  // Detect if syncing in progress
+  if (isSyncingMonth(theMonth)(store.getState())) {
+    console.log(theMonth + " is already being synced");
     return Promise.resolve();
   }
-  let data = {
-    startDate: theMoment.startOf('month').format('YYYY-MM-DD'),
-    endDate: theMoment.endOf('month').format('YYYY-MM-DD')
-  };
 
-  let url = "/api/holidays";
-  return jsonPost(url, data).then(json => {
-    store.dispatch(receiveHolidays({ holidays: json.holidays }));
-    store.dispatch(markMonthSynced({ syncedMonth: theMonth }));
-    return json;
-  });
+  // Detect if already synced and is in store
+  if (hasSyncedMonth(theMonth)(store.getState())) {
+    console.log(theMonth + " has been synced before");
+    return Promise.resolve();
+  }
+
+  let startDate = theMoment.startOf("month").format("YYYY-MM-DD");
+  let endDate = theMoment.endOf("month").format("YYYY-MM-DD");
+
+  // Mark as being synced
+  store.dispatch(startedSyncingMonth({ syncingMonth: theMonth }));
+
+  return syncHolidays(startDate, endDate)
+    .then(json => {
+      store.dispatch(markMonthSynced({ syncedMonth: theMonth }));
+    })
+    .finally(() => {
+      store.dispatch(finishedSyncingMonth({ syncingMonth: theMonth }));
+    });
 };
