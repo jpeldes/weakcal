@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import styles from "./WeekView.module.css";
-import { selectAllHolidays } from "../holidays/holidaysSlice";
+import { selectHolidayById } from "../holidays/holidaysSlice";
 import { useSelector } from "react-redux";
 import { Box, Card, CardMedia, CardContent } from "@material-ui/core";
 
@@ -13,7 +13,8 @@ function DayEventsItem({ name, type }) {
 
 export function DayView({ holidayId }) {
   let m = moment(holidayId);
-  const holidays = useSelector(selectAllHolidays)[holidayId] || [];
+
+  const holidays = useSelector(selectHolidayById(holidayId));
   return (
     <Card className={styles.dayView}>
       <CardMedia>

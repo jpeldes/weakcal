@@ -1,5 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const EMPTY_ARRAY = [];
+
 export const slice = createSlice({
   name: 'holidays',
   initialState: {
@@ -42,7 +44,7 @@ export const slice = createSlice({
 
 // Selectors
 export const selectAllHolidays = state => state.holidays.byId;
-export const selectHolidayById = holidayId => state => state.holidays.byId[holidayId];
+export const selectHolidayById = holidayId => state => state.holidays.byId[holidayId] || EMPTY_ARRAY;
 export const hasSyncedMonth = syncedMonth => state => state.holidays.syncedMonths.indexOf(syncedMonth) >= 0;
 export const isSyncingMonth = syncingMonth => state => state.holidays.syncingMonths.indexOf(syncingMonth) >= 0;
 
