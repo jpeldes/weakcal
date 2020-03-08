@@ -19,10 +19,10 @@ const SettingFirstDayOfWeek = () => {
   const handleClick = event => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
 
-  const options = [0, 1, 2, 3, 4, 5, 6];
+  let options = [1,2,3,4,5,6,0];
 
   const buttonTitle = moment()
-    .weekday(firstDay)
+    .isoWeekday(firstDay)
     .format("dddd");
 
   return (
@@ -44,20 +44,23 @@ const SettingFirstDayOfWeek = () => {
           open={Boolean(anchorEl)}
           onClose={handleClose}
         >
-          {options.map(option => (
-            <MenuItem
-              key={option}
-              data-dow={option}
-              onClick={event => {
-                setFirstDay(event.currentTarget.dataset.dow);
-                handleClose();
-              }}
-            >
-              {moment()
-                .weekday(option)
-                .format("dddd")}
-            </MenuItem>
-          ))}
+          {options.map(option => {
+            const dayName = moment()
+              .isoWeekday(option)
+              .format("dddd");
+            return (
+              <MenuItem
+                key={dayName}
+                data-dow={option}
+                onClick={event => {
+                  setFirstDay(parseInt(event.currentTarget.dataset.dow));
+                  handleClose();
+                }}
+              >
+                {dayName}
+              </MenuItem>
+            );
+          })}
         </Menu>
       </DialogContent>
     </>
