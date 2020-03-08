@@ -10,7 +10,6 @@ import {
   Card,
   CardMedia,
   CardContent,
-  CardActions,
   BottomNavigation,
   BottomNavigationAction
 } from "@material-ui/core";
@@ -38,11 +37,11 @@ function DayView({ holidayId }) {
       <CardContent className={styles.dayTitle}>
         <Box textAlign="center">{m.format("DD.MM.YYYY")}</Box>
       </CardContent>
-      <CardActions className={styles.dayEvents}>
+      <Box className={styles.dayEvents}>
         {holidays.map((holiday, idx) => (
           <DayEventsItem key={idx} {...holiday} />
         ))}
-      </CardActions>
+      </Box>
     </Card>
   );
 }
@@ -76,15 +75,17 @@ export function WeekView() {
         ))}
       </div>
 
+      <Box>
       <BottomNavigation
         value={m}
         onChange={(event, newValue) => onChangeDate(newValue)}
         showLabels
-      >
+        >
         <BottomNavigationAction label="Last week" value={m.subtract(7, "days").format("YYYY-MM-DD")} icon={<ArrowLeftIcon />} />
         <BottomNavigationAction label="Today" value={moment().format("YYYY-MM-DD")} icon={<CalendarTodayIcon />} />
         <BottomNavigationAction label="Next week" value={m.add(7, "days").format("YYYY-MM-DD")} icon={<ArrowRightIcon />} />
       </BottomNavigation>
+      </Box>
     </div>
   );
 }
