@@ -31,7 +31,7 @@ function DayView({ holidayId }) {
 
   return (
     <Card className={styles.dayView}>
-      <CardMedia title={m.format("ddd")}>
+      <CardMedia>
         <Box textAlign="center">{m.format("ddd")}</Box>
       </CardMedia>
       <CardContent className={styles.dayTitle}>
@@ -56,15 +56,15 @@ export function WeekView() {
 
   // on date change: sync holidays
   React.useEffect(() => {
-    const startDate = m.weekday(0).format("YYYY-MM-DD");
-    const endDate = m.weekday(6).format("YYYY-MM-DD");
+    const startDate = moment(m).weekday(0).format("YYYY-MM-DD");
+    const endDate = moment(m).weekday(6).format("YYYY-MM-DD");
     api.syncHolidays(startDate, endDate).then(console.log);
   }, [m]);
 
   // Generate 7 days of that given week
   let thisWeeksIds = [];
   for (var dayNr = 0; dayNr <= 6; dayNr++) {
-    thisWeeksIds.push(m.weekday(dayNr).format("YYYY-MM-DD"));
+    thisWeeksIds.push(moment(m).weekday(dayNr).format("YYYY-MM-DD"));
   }
 
   return (
@@ -81,9 +81,9 @@ export function WeekView() {
         onChange={(event, newValue) => onChangeDate(newValue)}
         showLabels
         >
-        <BottomNavigationAction label="Last week" value={m.subtract(7, "days").format("YYYY-MM-DD")} icon={<ArrowLeftIcon />} />
+        <BottomNavigationAction label="Last week" value={moment(m).subtract(7, "days").format("YYYY-MM-DD")} icon={<ArrowLeftIcon />} />
         <BottomNavigationAction label="Today" value={moment().format("YYYY-MM-DD")} icon={<CalendarTodayIcon />} />
-        <BottomNavigationAction label="Next week" value={m.add(7, "days").format("YYYY-MM-DD")} icon={<ArrowRightIcon />} />
+        <BottomNavigationAction label="Next week" value={moment(m).add(7, "days").format("YYYY-MM-DD")} icon={<ArrowRightIcon />} />
       </BottomNavigation>
       </Box>
     </div>
