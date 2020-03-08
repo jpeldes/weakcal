@@ -7,7 +7,7 @@ import {
   Dialog} from "@material-ui/core";
 import SettingsIcon from "@material-ui/icons/Settings";
 import classes from "./TopNavBar.module.css";
-import { SettingsModal } from "./SettingsModal";
+import { SettingsModal } from "./features/settings/SettingsModal";
 
 const TopNavBar = () => {
   const [isModalOpen, setModalOpen] = React.useState(false);
