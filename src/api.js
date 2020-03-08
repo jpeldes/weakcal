@@ -4,7 +4,7 @@ import {
   markMonthSynced,
   hasSyncedMonth
 } from "./features/holidays/holidaysSlice";
-import store from "./store";
+import { store } from "./store";
 
 // Constants
 const BASE_URL = "https://wozmx9dh26.execute-api.eu-west-1.amazonaws.com";
