@@ -1,25 +1,15 @@
 import React from "react";
 import { WeekView } from "./features/weekview/WeekView";
-import { Container, Paper, Box, Typography } from "@material-ui/core";
-
-function Hero() {
-  return (
-    <Paper>
-      <Box textAlign="center" mb={3} py={3}>
-        <Typography variant="h2">WeakCal</Typography>
-        <Typography variant="h5">Your weekly calendar</Typography>
-      </Box>
-    </Paper>
-  );
-}
+import { Container } from "@material-ui/core";
+import TopNavBar from "./TopNavBar";
 
 function App() {
   return (
     <>
-    <Hero />
+      <TopNavBar />
       <Container>
-      <WeekView />
-    </Container>
+        <WeekView />
+      </Container>
     </>
   );
 }
