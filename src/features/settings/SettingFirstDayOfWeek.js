@@ -7,8 +7,14 @@ import {
   Button
 } from "@material-ui/core";
 import moment from "moment";
+import { useSelector, useDispatch } from "react-redux";
+import { selectFirstDayOfWeek, setFirstDayOfWeek } from "./settingsSlice";
 
-const SettingFirstDayOfWeek = ({ firstDay, setFirstDay }) => {
+const SettingFirstDayOfWeek = () => {
+  const firstDay = useSelector(selectFirstDayOfWeek);
+  const dispatch = useDispatch();
+  const setFirstDay = nr => dispatch(setFirstDayOfWeek({ firstDayOfWeek: nr }));
+
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = event => setAnchorEl(event.currentTarget);
   const handleClose = () => setAnchorEl(null);
@@ -41,8 +47,9 @@ const SettingFirstDayOfWeek = ({ firstDay, setFirstDay }) => {
           {options.map(option => (
             <MenuItem
               key={option}
-              onClick={() => {
-                setFirstDay(option);
+              data-dow={option}
+              onClick={event => {
+                setFirstDay(event.currentTarget.dataset.dow);
                 handleClose();
               }}
             >

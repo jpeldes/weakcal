@@ -4,11 +4,9 @@ import SettingFirstDayOfWeek from "./SettingFirstDayOfWeek";
 import SettingDarkMode from "./SettingDarkMode";
 
 export const SettingsModal = () => {
-  const [firstDay, setFirstDay] = React.useState(0);
-
   return (
     <Paper>
-      <SettingFirstDayOfWeek firstDay={firstDay} setFirstDay={setFirstDay} />
+      <SettingFirstDayOfWeek />
       <SettingDarkMode />
     </Paper>
   );
