@@ -1,10 +1,10 @@
 import { createMuiTheme } from "@material-ui/core/styles";
 
 // A custom theme for this app
-const theme = createMuiTheme({
+const getTheme = (isDarkMode) => createMuiTheme({
   palette: {
-    type: "dark"
+    type: isDarkMode ? "dark" : "light"
   }
 });
 
-export default theme;
+export default getTheme;

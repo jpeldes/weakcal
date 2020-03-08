@@ -6,8 +6,13 @@ import {
   FormControlLabel,
   Switch
 } from "@material-ui/core";
+import { useDispatch, useSelector } from "react-redux";
+import { selectDarkMode, setDarkMode } from "./settingsSlice";
 
-const SettingDarkMode = ({ isDarkMode, setDarkMode }) => {
+const SettingDarkMode = () => {
+  const isDarkMode = useSelector(selectDarkMode);
+  const dispatch = useDispatch();
+
   return (
     <>
       <DialogTitle>Dark mode</DialogTitle>
@@ -17,7 +22,9 @@ const SettingDarkMode = ({ isDarkMode, setDarkMode }) => {
             control={
               <Switch
                 checked={isDarkMode}
-                onChange={event => setDarkMode(event.target.checked)}
+                onChange={() =>
+                  dispatch(setDarkMode({ isDarkMode: !isDarkMode }))
+                }
               />
             }
             label={isDarkMode ? "Dark mode" : "Light mode"}
