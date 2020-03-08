@@ -6,10 +6,16 @@ import { store, persistor } from "./store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import * as serviceWorker from "./serviceWorker";
+import * as utils from "./utils";
+
+const onBeforeLift = () => {
+  let dow = store.getState().settings.firstDayOfWeek;
+  utils.updateMomentJsLocale({ dow });
+}
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
+    <PersistGate loading={null} onBeforeLift={onBeforeLift} persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>,
