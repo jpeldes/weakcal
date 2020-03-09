@@ -11,6 +11,8 @@
 
 .weekNav {
     margin: 12px 8px;
+    position: sticky;
+    top: 0;
 }
 
 .dayView {

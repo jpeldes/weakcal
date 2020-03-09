@@ -30,8 +30,8 @@ export function WeekView() {
 
   return (
     <div className={styles.weekView}>
-      <WeekList theMoment={theMoment} />
       <WeekNav theMoment={theMoment} onChangeDate={onChangeDate} />
+      <WeekList theMoment={theMoment} />
     </div>
   );
 }
