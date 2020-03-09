@@ -2,8 +2,8 @@
 
 * Clone this repo
 * In project root directory, create `.env` file and add the following variables:
-** REACT_APP_API_KEY=asdf
-** REACT_APP_API_URL=https://api.com
+  * `REACT_APP_API_KEY=asdf`
+  * `REACT_APP_API_URL=https://api.com`
 * Run `npm install` to install all required dependencies.
 * Run `npm run build` to build the app for production into the `build` folder.
 * Run `serve -s build` and open [http://localhost:5000](http://localhost:5000) to view the app in the browser.
