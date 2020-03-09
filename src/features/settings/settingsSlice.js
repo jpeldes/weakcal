@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import moment from 'moment';
+import * as utils from '../../utils';
 
 export const slice = createSlice({
   name: 'settings',
@@ -12,6 +13,7 @@ export const slice = createSlice({
       state.isDarkMode = !!action.payload.isDarkMode;
     },
     setFirstDayOfWeek: (state, action) => {
+      utils.updateMomentJsLocale({ dow: action.payload.firstDayOfWeek });
       state.firstDayOfWeek = action.payload.firstDayOfWeek;
     },
   },
