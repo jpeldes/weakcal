@@ -6,25 +6,19 @@
     display: flex;
     flex-wrap: wrap;
     flex: 1 1 auto;
+}
 
-    margin-bottom: 2em;
-}
 .weekNav {
-    text-align: center;
-}
-.weekNavBtn {
-    font-size: 2em;
+    margin: 12px 8px;
+    margin-bottom: 2em;
 }
 
 .dayView {
     flex: 1;
-    margin-top: 12px;
-    margin-left: 12px;
+    margin: 8px;
     min-width: 110px;
 }
-.dayView:first-child {
-    margin-left: 0;
-}
+
 .dayTitle {
     font-weight: 700;
 }
