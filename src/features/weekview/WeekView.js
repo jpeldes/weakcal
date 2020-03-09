@@ -6,13 +6,17 @@ import * as api from "../../api";
 
 import { WeekList } from "./WeekList";
 import { WeekNav } from "./WeekNav";
+import { useSelector } from "react-redux";
+import { selectFirstDayOfWeek } from "../settings/settingsSlice";
 
 const todaysDate = moment().format("YYYY-MM-DD");
 
 export function WeekView() {
+  // Re-render WeekView if first day of week changes
+  useSelector(selectFirstDayOfWeek);
+
   // Default value: todays date
   const [theDate, onChangeDate] = React.useState(todaysDate);
-
   let theMoment = moment(theDate);
 
   // on date change: sync holidays
