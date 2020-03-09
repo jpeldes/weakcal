@@ -1,9 +1,9 @@
 import React from "react";
 import moment from "moment";
 import {
-  Box,
   BottomNavigation,
-  BottomNavigationAction
+  BottomNavigationAction,
+  Paper
 } from "@material-ui/core";
 
 import CalendarTodayIcon from "@material-ui/icons/Today";
@@ -13,7 +13,7 @@ import ArrowLeftIcon from "@material-ui/icons/ArrowBack";
 
 export function WeekNav({ theMoment, onChangeDate }) {
   return (
-    <Box>
+    <Paper>
       <BottomNavigation
         value={theMoment}
         onChange={(event, newValue) => onChangeDate(newValue)}
@@ -36,9 +36,9 @@ export function WeekNav({ theMoment, onChangeDate }) {
           value={moment(theMoment)
             .add(7, "days")
             .format("YYYY-MM-DD")}
-          icon={<ArrowRightIcon />}
+          icon={<ArrowRightIcon color="inherit" />}
         />
       </BottomNavigation>
-    </Box>
+    </Paper>
   );
 }

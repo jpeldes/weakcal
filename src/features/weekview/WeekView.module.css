@@ -1,3 +1,7 @@
+.weekView {
+    margin-top: 1em;
+}
+
 .weekList {
     display: flex;
     flex-wrap: wrap;
